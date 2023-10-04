@@ -7,13 +7,15 @@ export const getTodosGroupedByColumn = async () => {
   );
 
   const todos = data.documents;
-  const columns = todos.reduce((acc, todo) => {
+
+  const columns = todos.reduce((acc: any, todo: any) => {
     if (!acc.get(todo.status)) {
       acc.set(todo.status, {
         id: todo.status,
         todos: [],
       });
     }
+
     acc.get(todo.status)!.todos.push({
       $id: todo.$id,
       $createdAt: todo.$createdAt,
@@ -21,10 +23,12 @@ export const getTodosGroupedByColumn = async () => {
       status: todo.status,
       ...(todo.image && { image: JSON.parse(todo.image) }),
     });
+
     return acc;
   }, new Map<TypedColumn, Column>());
 
   const columnTypes: TypedColumn[] = ['todo', 'inprogress', 'done'];
+
   for (const columnType of columnTypes) {
     if (!columns.get(columnType)) {
       columns.set(columnType, {
@@ -34,8 +38,8 @@ export const getTodosGroupedByColumn = async () => {
     }
   }
 
-  const sortedColumns = new Map(
-    Array.from(columns.entries()).sort(
+  const sortedColumns: Map<TypedColumn, Column> = new Map(
+    [...columns.entries()].sort(
       (a, b) => columnTypes.indexOf(a[0]) - columnTypes.indexOf(b[0])
     )
   );
@@ -43,6 +47,6 @@ export const getTodosGroupedByColumn = async () => {
   const board: Board = {
     columns: sortedColumns,
   };
-  console.log('getTODO', board);
+
   return board;
 };
