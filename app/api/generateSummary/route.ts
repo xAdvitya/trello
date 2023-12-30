@@ -20,6 +20,7 @@ export async function POST(request: Request) {
     ],
   });
 
+  console.log(completion)
   const { choices } = completion;
 
   console.log(`data is ${choices}`);

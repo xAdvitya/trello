@@ -1,5 +1,5 @@
 interface Board {
-  columns: Map<TypedColumn.Column>;
+  columns: Map<TypedColumn, Column>;
 }
 
 type TypedColumn = 'todo' | 'inprogress' | 'done';
@@ -9,7 +9,7 @@ interface Column {
   todos: Todo[];
 }
 
-interface Todo extends Models.documents{
+interface Todo {
   $id: string;
   $createdAt: string;
   title: string;
@@ -19,5 +19,5 @@ interface Todo extends Models.documents{
 
 interface Image {
   bucketId: string;
-  fieldId: string;
+  fileId: string;
 }
