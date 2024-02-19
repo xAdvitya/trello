@@ -1,6 +1,6 @@
 // next.config.js
 module.exports = {
   images: {
-    domains: ['upload.wikimedia.org'],
+    domains: ['cloud.appwrite.io', 'upload.wikimedia.org'],
   },
 };
