@@ -1,11 +1,10 @@
-type TypedColumn = string;
-
 const formatTodoForAi = (board: Board) => {
-  const flatArray: { [key in TypedColumn]: Todo[] } = {};
+  const todos = Array.from(board.columns.entries());
 
-  for (const [key, value] of board.columns.entries()) {
-    flatArray[key] = value.todos;
-  }
+  const flatArray = todos.reduce((map, [key, value]) => {
+    map[key] = value.todos;
+    return map;
+  }, {} as { [key in TypedColumn]: Todo[] });
 
   const flatArrayCounted = Object.entries(flatArray).reduce(
     (map, [key, value]) => {
